@@ -1,0 +1,110 @@
+@extends('layouts.admin.index')
+
+@section('title', 'Detail Order')
+
+@section('breadcrumb')
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h4>Detail Order</h4>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Detail Order</li>
+            </ol>
+        </div>
+    </div>
+@endsection
+
+@section('content')
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <table class="table table-bordered table-striped table-sm">
+                    <thead class="bg-navy">
+                        <tr>
+                            <th>Produk</th>
+                            <th>Harga</th>
+                            <th>QTY</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($order->detail_order as $detail)
+                            <tr>
+                                <td>{{ $detail->product->name }}</td>
+                                <td>{{ $detail->price }}</td>
+                                <td>{{ $detail->amount }}</td>
+                                <td>{{ $detail->total_price }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Detail Customer</h6>
+                        <table class="table table-sm">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @if ($order->customer != null)
+                                            <img src="{{ asset('storage/upload/user/' . $order->customer->image) }}"
+                                                alt="User" style="max-width:40px;">
+                                        @else
+                                        @endif
+                                    </td>
+                                    <td></td>
+                                    <td>{{ $order->customer->full_name ?? '' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>No HP</td>
+                                    <td>:</td>
+                                    <td>{{ $order->customer->phone_number ?? '' }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <table class="table  table-sm">
+                    <tbody>
+                        <tr>
+                            <td>Sub Total</td>
+                            <td>:</td>
+                            <td>{{ $price }}</td>
+                        </tr>
+                        <tr>
+                            <td>Diskon</td>
+                            <td>:</td>
+                            <td>{{ $discount }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>:</td>
+                            <td>{{ $totalPrice }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="text-bold">Alamat Customer :</h6>
+                        <p>{{ $order->customer->address ?? '' }}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
