@@ -31,6 +31,10 @@
                                             </div> --}}
                                             <!-- batas diskon -->
                                             <div class="card-body text-center">
+                                                @if ($product->type_id == 1)
+                                                    <img src="{{ asset('template/dist/img/k.png') }}" class="logo-k"
+                                                        alt="Logo K">
+                                                @endif
                                                 <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
                                                     class="card-img-top" alt="Produk 1">
                                                 <p class="limited-text"><b>{{ $product->name }},
