@@ -39,6 +39,8 @@ class CreateNewUser implements CreatesNewUsers
             'user_id' => $user->id,
         ]);
 
+        $user->assignRole('customer');
+
         return $user;
     }
 }
