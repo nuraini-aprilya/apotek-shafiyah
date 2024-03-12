@@ -10,7 +10,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ $profile->description }}</td>
+                            <td>{{ $profile->description ?? '' }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -26,7 +26,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ $profile->address }}</td>
+                            <td>{{ $profile->address ?? '' }}</td>
                         </tr>
                     </tbody>
                 </table>
