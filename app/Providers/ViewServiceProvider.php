@@ -123,6 +123,7 @@ class ViewServiceProvider extends ServiceProvider
             if ($user) {
                 $view->with([
                     'carts' => Cart::with('details')->where('customer_id', auth()->user()->id)->get(),
+                    'orders' => Order::with('detail_order')->where('customer_id', auth()->user()->id)->where('status', 4)->get(),
                 ]);
             }
         });

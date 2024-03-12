@@ -104,7 +104,7 @@
             @if (auth()->user())
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        {{-- <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header bg-light"></div>
                                 <table class="table table-sm">
@@ -131,36 +131,48 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        {{-- <div class="col-md-8">
-                            <div class="card">
-                                <table class="table table-bordered table-sm font-sm">
-                                    <thead class="bg-navy">
-                                        <tr>
-                                            <th>Id Order</th>
-                                            <th>Tanggal</th>
-                                            <th>Item Dipesan</th>
-                                            <th>Total</th>
-                                            <th>Status Bayar</th>
-                                            <th>Cancel</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>00912</td>
-                                            <td>Kamis 22 Feb 2024</td>
-                                            <td>3 Item</td>
-                                            <td>Rp. 45.899</td>
-                                            <td>Menunggu dibayar</td>
-                                            <td class="text-center">
-                                                <a href="#" class="btn btn-sm btn-warning bg-orange"><i
-                                                        class="fa fa-window-close text-white"></i></a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div> --}}
+                        @if ($orders)
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <table class="table table-bordered table-sm font-sm">
+                                        <thead class="bg-navy">
+                                            <tr>
+                                                <th>Id Order</th>
+                                                <th>Tanggal</th>
+                                                <th>Item Dipesan</th>
+                                                <th>Total</th>
+                                                <th>Status Bayar</th>
+                                                <th>Cancel</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($orders as $order)
+                                                <tr>
+                                                    <td>{{ $order->id }}</td>
+                                                    <td>{{ $order->created_at }}</td>
+                                                    <td>{{ $order->detail_order->count() }} item</td>
+                                                    <td>Rp. {{ $order->total_price }}</td>
+                                                    <td>{{ $order->status() }}</td>
+                                                    <td class="text-center">
+                                                        <form action="{{ route('cancel.order', $order->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-warning bg-orange"><i
+                                                                    class="fa fa-window-close text-white"></i></button>
+                                                        </form>
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
 
                     <table id="tabel" class="table table-sm table-striped">
@@ -178,17 +190,18 @@
                                 @foreach ($cart->details as $detail)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <input type="hidden" class="product_id[]"
-                                            value="{{ $detail->product->id }}">
+                                        <input type="hidden" class="product_id" value="{{ $detail->product->id }}">
                                         <td><a href="#"
                                                 class="text-success">{{ $detail->product->name }}</a><br>
-                                            {{-- <small class="text-danger">Harus Dengan
-                                                resep dokter</small> --}}
+                                            @if ($detail->product->type_id == 1)
+                                                <small class="text-danger">Harus Dengan
+                                                    resep dokter</small>
+                                            @endif
                                         </td>
-                                        <td class="amount[]">{{ $detail->amount }} </td>
-                                        <td class="price[]">Rp. {{ $detail->total_price }}</td>
-                                        <td class="discount[]">{{ $detail->discount }}</td>
-                                        <td class="total[]">Rp. {{ $detail->total_price }}</td>
+                                        <td class="amount">{{ $detail->amount }} </td>
+                                        <td class="price">Rp. {{ $detail->total_price }}</td>
+                                        <td class="discount">{{ $detail->discount }}</td>
+                                        <td class="total">Rp. {{ $detail->total_price }}</td>
                                         <td>
                                             <form
                                                 action="{{ route('destroy.cart', [$detail->cart_id, $detail->product->id]) }}"
@@ -280,37 +293,36 @@
     <script>
         $(document).ready(function() {
             $('#buatOrder').click(function() {
-                var row = $('#tabel tbody tr');
+                $('#tabel tbody tr').each(function() {
+                    var row = $(this);
+                    var productId = row.find('.product_id').val();
+                    var total_price = $('#totalPrice').text().replace('Total Harga : Rp. ', '');
+                    var amountValue = row.find('.amount').text();
+                    var priceValue = row.find('.price').text().replace('Rp. ', '');
+                    var discountValue = row.find('.discount').text();
+                    var totalValue = row.find('.total').text().replace('Rp. ', '');
 
-                var productId = $('.product_id').val();
-                var total_price = $('#totalPrice').text().replace('Total Harga : Rp. ', '');
-                var amountValue = row.find('.amount').text();
-                var priceValue = row.find('.price').text();
-                var discountValue = row.find('.discount').text();
-                var totalValue = row.find('.total').text();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('store.order') }}',
-                    data: {
-                        product_id: productId,
-                        total_price: total_price,
-                        amountValue: amountValue,
-                        priceValue: priceValue,
-                        discountValue: discountValue,
-                        totalValue: totalValue,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        alert('Berhasil buat pesanan!');
-                        location.reload()
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                        alert(
-                            'Terjadi kesalahan saat membayar.'
-                        );
-                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('store.order') }}',
+                        data: {
+                            product_id: productId,
+                            total_price: total_price,
+                            amountValue: amountValue,
+                            priceValue: priceValue,
+                            discountValue: discountValue,
+                            totalValue: totalValue,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            alert('Berhasil buat pesanan!');
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error);
+                            alert('Terjadi kesalahan saat membayar.');
+                        }
+                    });
                 });
             })
         })

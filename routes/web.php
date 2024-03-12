@@ -21,6 +21,7 @@ Route::get('/search-product', [App\Http\Controllers\User\DashboardController::cl
 Route::get('/kategori/{category}', [App\Http\Controllers\User\DashboardController::class, 'category'])->name('category');
 Route::post('/cart', [App\Http\Controllers\User\CartController::class, 'store'])->name('store.cart');
 Route::post('/order', [App\Http\Controllers\User\OrderController::class, 'store'])->name('store.order');
+Route::put('/order/{order}', [App\Http\Controllers\User\OrderController::class, 'cancel'])->name('cancel.order');
 Route::delete('/cart/{cartId}/{productId}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('destroy.cart');
 
 Route::post('/resep', [App\Http\Controllers\User\RecipeController::class, 'store'])->name('store.recipe');;
