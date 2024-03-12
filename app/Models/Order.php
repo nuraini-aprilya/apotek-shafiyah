@@ -27,8 +27,10 @@ class Order extends Model
             return 'Belum Diproses';
         } elseif ($this->status == 2) {
             return 'Selesai';
-        } else {
+        } elseif ($this->status == 3) {
             return 'Dibatalkan';
+        } else {
+            return 'Menunggu Dibayar';
         }
     }
 }
