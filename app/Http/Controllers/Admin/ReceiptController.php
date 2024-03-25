@@ -109,4 +109,10 @@ class ReceiptController extends Controller
             dd($th->getMessage());
         }
     }
+
+    public function print(Receipt $receipt)
+    {
+        $receipt->load('purchase', 'detail_receipt');
+        return view('admin.receipt.print', compact('receipt'));
+    }
 }

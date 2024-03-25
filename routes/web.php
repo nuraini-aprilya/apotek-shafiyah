@@ -68,12 +68,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // Purchase
     Route::resource('/purchase', App\Http\Controllers\Admin\PurchaseController::class);
     Route::get('/getPurchaseDetails/{id}', [App\Http\Controllers\Admin\PurchaseController::class, 'getPurchaseDetails']);
+    Route::get('/print/purchase/{purchase}', [App\Http\Controllers\Admin\PurchaseController::class, 'print'])->name('print.purchase');
 
     // Receipt
     Route::resource('/receipt', App\Http\Controllers\Admin\ReceiptController::class);
+    Route::get('/print/receipt/{receipt}', [App\Http\Controllers\Admin\ReceiptController::class, 'print'])->name('print.receipt');
 
     // Refund
     Route::resource('/refund', App\Http\Controllers\Admin\RefundController::class);
+    Route::get('/print/refund/{refund}', [App\Http\Controllers\Admin\RefundController::class, 'print'])->name('print.refund');
 
     // Report
     Route::get('/report/receipt', [App\Http\Controllers\Admin\ReportController::class, 'receipt'])->name('report.receipt');

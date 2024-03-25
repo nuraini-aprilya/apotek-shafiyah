@@ -125,4 +125,10 @@ class PurchaseController extends Controller
         $details = DetailPurchase::with('product.unit')->where('purchase_id', $id)->get();
         return response()->json($details);
     }
+
+    public function print(Purchase $purchase)
+    {
+        $purchase->load('detail_purchase', 'supplier');
+        return view('admin.purchase.print', compact('purchase'));
+    }
 }

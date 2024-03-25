@@ -123,4 +123,9 @@ class RefundController extends Controller
             dd($th->getMessage());
         }
     }
+
+    public function print(Refund $refund)
+    {
+        return view('admin.refund.print', compact('refund'));
+    }
 }
