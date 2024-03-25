@@ -116,8 +116,10 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li
+                class="nav-item {{ request()->is('admin/report/order', 'admin/report/purchase', 'admin/report/receipt') ? ' menu-open' : '' }}">
+                <a href="#"
+                    class="nav-link {{ request()->is('admin/report/order', 'admin/report/purchase', 'admin/report/receipt') ? ' active' : '' }}">
                     <i class="nav-icon fas fa-copy"></i>
                     <p>
                         Laporan
@@ -126,19 +128,22 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="pages/tables/simple.html" class="nav-link">
+                        <a href="{{ route('admin.report.order') }}"
+                            class="nav-link {{ request()->is('admin/report/order') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Laporan Penjualan</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/tables/data.html" class="nav-link">
+                        <a href="{{ route('admin.report.purchase') }}"
+                            class="nav-link {{ request()->is('admin/report/purchase') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Lap. Pembelian-Sup</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="pages/tables/jsgrid.html" class="nav-link">
+                        <a href="{{ route('admin.report.receipt') }}"
+                            class="nav-link {{ request()->is('admin/report/receipt') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Lap. Obat Yang Diterima</p>
                         </a>

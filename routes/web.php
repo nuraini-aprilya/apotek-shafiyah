@@ -75,6 +75,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // Refund
     Route::resource('/refund', App\Http\Controllers\Admin\RefundController::class);
 
+    // Report
+    Route::get('/report/receipt', [App\Http\Controllers\Admin\ReportController::class, 'receipt'])->name('report.receipt');
+    Route::get('/report/purchase', [App\Http\Controllers\Admin\ReportController::class, 'purchase'])->name('report.purchase');
+    Route::get('/report/order', [App\Http\Controllers\Admin\ReportController::class, 'order'])->name('report.order');
+
     // Banner
     Route::resource('/banner', App\Http\Controllers\Admin\BannerController::class);
 
