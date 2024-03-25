@@ -30,7 +30,13 @@
                         <a class="text-white" href="#">
                             &nbsp; &nbsp; {{ auth()->user()->customer->full_name ?? '' }}
                         </a>
-                        <img src="../dist/img/avatar3.png" class="img img-circle" style="width:30px;">
+                        @if (auth()->user() && auth()->user()->customer && auth()->user()->customer->image == null)
+                            <img src="https://ui-avatars.com/api/?name={{ auth()->user()->username }}"
+                                class="img img-circle" style="width:30px;">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name=A" class="img img-circle" style="width:30px;">
+                        @endif
+
                     </li>
                 @else
                     <li class="nav-item dropdown">
