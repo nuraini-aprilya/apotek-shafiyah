@@ -24,10 +24,13 @@ Route::post('/order', [App\Http\Controllers\User\OrderController::class, 'store'
 Route::put('/order/{order}', [App\Http\Controllers\User\OrderController::class, 'cancel'])->name('cancel.order');
 Route::delete('/cart/{cartId}/{productId}', [App\Http\Controllers\User\CartController::class, 'destroy'])->name('destroy.cart');
 
-Route::post('/resep', [App\Http\Controllers\User\RecipeController::class, 'store'])->name('store.recipe');;
+Route::post('/resep', [App\Http\Controllers\User\RecipeController::class, 'store'])->name('store.recipe');
+
+Route::get('/akun', [App\Http\Controllers\User\AccountController::class, 'index'])->name('account.index');
+Route::put('/akun/{customer}', [App\Http\Controllers\User\AccountController::class, 'update'])->name('account.update');
 
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
     // Cashier
     Route::get('/cashier', [App\Http\Controllers\Admin\CashierController::class, 'index'])->name('cashier');
 
