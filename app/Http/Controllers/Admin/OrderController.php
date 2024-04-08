@@ -133,4 +133,13 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function approve(Order $order)
+    {
+        $order->update([
+            'status' => 2
+        ]);
+
+        return redirect()->back()->with('success', 'Pesanan berhasil diterima');
+    }
 }
