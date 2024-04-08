@@ -27,14 +27,15 @@
                 <!-- Messages Dropdown Menu -->
                 @if (auth()->user())
                     <li class="nav-item dropdown">
-                        <a class="text-white" href="#">
+                        <a class="text-white" href="{{ route('account.index') }}">
                             &nbsp; &nbsp; {{ auth()->user()->customer->full_name ?? '' }}
                         </a>
                         @if (auth()->user() && auth()->user()->customer && auth()->user()->customer->image == null)
                             <img src="https://ui-avatars.com/api/?name={{ auth()->user()->username }}"
                                 class="img img-circle" style="width:30px;">
                         @else
-                            <img src="https://ui-avatars.com/api/?name=A" class="img img-circle" style="width:30px;">
+                            <img src="{{ asset('storage/upload/avatar/' . auth()->user()->customer->image) }}"
+                                class="img img-circle" style="width:30px;">
                         @endif
 
                     </li>
