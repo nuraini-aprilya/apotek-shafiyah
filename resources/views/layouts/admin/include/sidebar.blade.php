@@ -17,6 +17,47 @@
                 </a>
             </li>
             <li
+                class="nav-item {{ request()->is('admin/supplier', 'admin/purchase', 'admin/receipt', 'admin/refund') ? ' menu-open' : '' }}">
+                <a href="#"
+                    class="nav-link {{ request()->is('admin/supplier', 'admin/purchase', 'admin/receipt', 'admin/refund') ? ' active' : '' }}">
+                    <i class="nav-icon fa fa-cubes"></i>
+                    <p>
+                        Detail Supplier
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.supplier.index') }}"
+                            class="nav-link {{ request()->is('admin/supplier') ? ' active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Supplier</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.purchase.index') }}"
+                            class="nav-link {{ request()->is('admin/purchase') ? ' active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Pembelian</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.receipt.index') }}"
+                            class="nav-link {{ request()->is('admin/receipt') ? ' active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Penerimaan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.refund.index') }}"
+                            class="nav-link {{ request()->is('admin/refund') ? ' active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Data Retur Barang</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li
                 class="nav-item {{ request()->is('admin/discount', 'admin/product', 'admin/expire-product', 'admin/dwindling-product') ? ' menu-open' : '' }}">
                 <a href="#"
                     class="nav-link {{ request()->is('admin/discount', 'admin/product', 'admin/expire-product', 'admin/dwindling-product') ? ' active' : '' }}">
@@ -74,47 +115,6 @@
                         Customer / User
                     </p>
                 </a>
-            </li>
-            <li
-                class="nav-item {{ request()->is('admin/supplier', 'admin/purchase', 'admin/receipt', 'admin/refund') ? ' menu-open' : '' }}">
-                <a href="#"
-                    class="nav-link {{ request()->is('admin/supplier', 'admin/purchase', 'admin/receipt', 'admin/refund') ? ' active' : '' }}">
-                    <i class="nav-icon fa fa-cubes"></i>
-                    <p>
-                        Detail Supplier
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('admin.supplier.index') }}"
-                            class="nav-link {{ request()->is('admin/supplier') ? ' active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Supplier</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.purchase.index') }}"
-                            class="nav-link {{ request()->is('admin/purchase') ? ' active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Data Pembelian</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.receipt.index') }}"
-                            class="nav-link {{ request()->is('admin/receipt') ? ' active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Data Penerimaan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.refund.index') }}"
-                            class="nav-link {{ request()->is('admin/refund') ? ' active' : '' }}">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Data Retur Barang</p>
-                        </a>
-                    </li>
-                </ul>
             </li>
             <li
                 class="nav-item {{ request()->is('admin/report/order', 'admin/report/purchase', 'admin/report/receipt') ? ' menu-open' : '' }}">
