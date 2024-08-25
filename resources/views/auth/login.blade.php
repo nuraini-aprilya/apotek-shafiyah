@@ -48,6 +48,6 @@
         </div>
     </form>
     <p class="mt-2 text-center">
-        Belum punya akun?, <a href="{{ route('register') }}" class="text-center">disini</a>
+        Belum punya akun?, <a href="{{ route('register') }}" class="text-center">Daftar disini</a>
     </p>
 @endsection
