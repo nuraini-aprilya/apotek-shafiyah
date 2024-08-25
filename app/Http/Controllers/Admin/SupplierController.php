@@ -43,7 +43,7 @@ class SupplierController extends Controller
 
         Supplier::create($attr);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data berhasil ditambah');
     }
 
     /**
@@ -71,7 +71,7 @@ class SupplierController extends Controller
 
         $supplier->update($attr);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data berhasil diubah');
     }
 
     /**
