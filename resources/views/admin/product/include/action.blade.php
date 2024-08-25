@@ -29,21 +29,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="formUpdateProduct" action="{{ route('admin.product.update', $id) }}" method="POST"
-                    enctype="multipart/form-data">
+            <form id="formUpdateProduct" action="{{ route('admin.product.update', $id) }}" method="POST"
+                enctype="multipart/form-data">
+                <div class="modal-body">
                     @csrf
                     @method('PUT')
                     @include('admin.product.include.form')
                     <!-- /.row -->
 
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fas fa-pencil-alt"
-                        aria-hidden="true" style="font-size: 12px;"></i>
-                    Update</button>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fas fa-pencil-alt"
+                            aria-hidden="true" style="font-size: 12px;"></i>
+                        Update</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>

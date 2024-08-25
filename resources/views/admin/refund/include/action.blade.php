@@ -6,8 +6,6 @@
 
     <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ route('admin.refund.show', $id) }}">Detail</a>
-        <a class="dropdown-item" data-toggle="modal" data-target="#modal-edit-{{ $id }}"
-            href="#">Edit</a>
         <form action={{ route('admin.refund.destroy', $id) }} method="post">
             @csrf
             @method('delete')

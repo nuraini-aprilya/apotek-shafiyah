@@ -31,7 +31,7 @@ class UpdateProductRequest extends FormRequest
             'batch_number' => 'required|numeric',
             'price' => 'required|numeric',
             'stock' => 'min:0',
-            'image' => 'required|max:1024|mimes:png,jpg',
+            'image' => 'nullable|max:1024|mimes:png,jpg',
             'information' => 'required|string',
         ];
     }

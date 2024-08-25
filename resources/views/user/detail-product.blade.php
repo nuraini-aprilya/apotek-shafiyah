@@ -70,15 +70,19 @@
                                             </h5>
                                         </div>
 
-                                        <div class="mt-4">
+                                        <div class="row mt-4">
                                             <a class="btn btn-secondary btn-lg" href="{{ url()->previous() }}">
                                                 <i class="fas fa-arrow-left fa-md mr-2"></i>
                                                 Kembali
                                             </a>
-                                            <div class="btn btn-success btn-lg">
-                                                <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                                                Tambahkan
-                                            </div>
+                                            <form action="{{ route('store.cart') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button type="submit" class="btn btn-success btn-lg mx-2">
+                                                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                                                    Tambahkan
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

@@ -48,7 +48,7 @@
                                                 <form action="{{ route('store.cart') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button type="submit" class="btn btn-success btn-block btn-sm">
+                                                    <button type="submit" class="btn btn-success btn-block btn-sm my-2">
                                                         <i class="fas fa-shopping-cart"></i> Tambah
                                                     </button>
                                                 </form>
