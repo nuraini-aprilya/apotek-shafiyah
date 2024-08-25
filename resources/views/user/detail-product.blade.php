@@ -64,7 +64,7 @@
                                                     Disc : @if ($product->discount == null)
                                                         0
                                                     @else
-                                                        {{ $product->discount->discount }}
+                                                        {{ $product->discount->discount }} %
                                                     @endif
                                                 </small>
                                             </h5>

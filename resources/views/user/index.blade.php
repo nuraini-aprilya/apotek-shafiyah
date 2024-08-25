@@ -129,7 +129,7 @@
                                                     <!-- kalau ada diskon pake ini  -->
                                                     <div class="ribbon-wrapper ribbon-lg">
                                                         <div class="ribbon bg-success">
-                                                            <b>Disc {{ $item->discount }}</b>
+                                                            <b>Disc {{ $item->discount }} %</b>
                                                         </div>
                                                     </div>
                                                     <!-- batas diskon -->
