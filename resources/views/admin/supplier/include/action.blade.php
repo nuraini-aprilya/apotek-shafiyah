@@ -27,34 +27,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form id="formUpdateSupplier" action="{{ route('admin.supplier.update', $id) }}" method="POST">
+            <form id="formUpdateSupplier" action="{{ route('admin.supplier.update', $id) }}" method="POST">
+                <div class="modal-body">
                     @method('PUT')
                     @csrf
-                    <div class="form-group">
-                        <label>Nama <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" value="{{ $name }}">
-                    </div>
-                    <!-- /.form-group -->
-                    <div class="form-group">
-                        <label>Kontak (Sales)<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="person" value="{{ $person }}">
-                    </div>
-                    <div class="form-group">
-                        <label>Telepon<span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" name="phone_number" value="{{ $phone_number }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alamat<span class="text-danger">*</span></label>
-                        <textarea name="address" class="form-control" cols="10" rows="4">{{ $address }}</textarea>
-                    </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fas fa-pencil-alt"
-                        aria-hidden="true" style="font-size: 12px;"></i>
-                    Update</button>
-                </form>
-            </div>
+                    @include('admin.supplier.include.form')
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fas fa-pencil-alt"
+                            aria-hidden="true" style="font-size: 12px;"></i>
+                        Update</button>
+                </div>
+            </form>
         </div>
         <!-- /.modal-content -->
     </div>

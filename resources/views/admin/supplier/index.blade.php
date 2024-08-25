@@ -53,27 +53,7 @@
                                 <div class="modal-body">
                                     <form id="formSupplier" method="POST">
                                         @csrf
-                                        <div class="form-group">
-                                            <label>Nama<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="name">
-                                            <span class="text-danger" id="name_error"></span>
-                                        </div>
-                                        <!-- /.form-group -->
-                                        <div class="form-group">
-                                            <label>Kontak (Sales)<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="person">
-                                            <span class="text-danger" id="person_error"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Telepon<span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" name="phone_number">
-                                            <span class="text-danger" id="phone_number_error"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Alamat<span class="text-danger">*</span></label>
-                                            <textarea name="address" class="form-control" cols="10" rows="4"></textarea>
-                                            <span class="text-danger" id="address_error"></span>
-                                        </div>
+                                        @include('admin.supplier.include.form')
                                 </div>
                                 <div class="modal-footer justify-content-between">
                                     <button type="submit" class="btn btn-success btn-sm btn-block"><i class="fa fa-plus"
