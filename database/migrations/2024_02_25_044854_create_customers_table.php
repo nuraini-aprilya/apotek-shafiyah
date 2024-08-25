@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('subdistrict')->default('-');
             $table->string('postal_code')->default('-');
             $table->string('address')->default('-');
-            $table->text('image')->default('-');
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }
