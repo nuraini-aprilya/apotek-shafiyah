@@ -3,7 +3,7 @@
         <a href="{{ route('dashboard') }}" class="navbar-brand">
             <img src="{{ asset('template/dist/img/logo ular.png') }}" alt="Logo" class="brand-image img-circle"
                 style="opacity: .8">
-            <span class="brand-text font-weight-light">{{ Str::upper(config('app.name')) }}</span>
+            <span class="brand-text font-weight-light text-white">{{ Str::upper(config('app.name')) }}</span>
         </a>
 
         <!-- Tombol toggle untuk tampilan SM dan MD -->
