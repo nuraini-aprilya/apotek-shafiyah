@@ -40,14 +40,9 @@
                                 style="font-size:16px">{{ $recipe->status() }}</span></td>
                     </tr>
                     <tr>
-                        <td>Obat dibeli</td>
-                        <td>:</td>
-                        <td>Paramex, panadol, antasida</td>
-                    </tr>
-                    <tr>
                         <td>Berakhir</td>
                         <td>:</td>
-                        <td>Hari ini, 23:59 WITA</td>
+                        <td>{{ Carbon\Carbon::parse($recipe->created_at->format('d F Y H:i:s'))->addHours(24) }}</td>
                     </tr>
                 </tbody>
             </table>

@@ -44,13 +44,13 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="">Deskripsi</label>
-                                    <textarea name="description" class="form-control" id="" cols="30" rows="5">
+                                    <textarea name="description" class="form-control" rows="5">
                                         {{ $profile->description }}
                                     </textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Alamat</label>
-                                    <textarea name="address" class="form-control" id="" cols="30" rows="5">
+                                    <textarea name="address" class="form-control" rows="5">
                                         {{ $profile->address }}
                                     </textarea>
                                 </div>

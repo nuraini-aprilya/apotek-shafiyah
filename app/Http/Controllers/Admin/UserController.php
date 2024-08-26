@@ -21,7 +21,8 @@ class UserController extends Controller
             return DataTables::of($users)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {
-                    return '<img src="' . asset('storage/upload/user/' . $row->image) . '" alt="Gambar 1" style="max-width:100px;">';
+                    $imagePath = $row->image ? asset('storage/upload/avatar/' . $row->image) : asset('template/dist/img/avatar4.png');
+                    return '<img src="' . $imagePath . '" alt="Gambar 1" style="max-width:100px;">';
                 })
                 ->addColumn('name', function ($row) {
                     return $row->full_name;

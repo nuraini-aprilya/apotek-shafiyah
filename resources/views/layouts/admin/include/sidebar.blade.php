@@ -150,8 +150,10 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li
+                class="nav-item {{ request()->is('admin/recipe', 'admin/recipe/*', 'admin/banner', 'admin/profile') ? ' menu-open' : '' }}">
+                <a href="#"
+                    class="nav-link {{ request()->is('admin/recipe', 'admin/recipe/*', 'admin/banner', 'admin/profile') ? ' menu-open' : '' }}">
                     <i class="nav-icon fas fa-info-circle"></i>
                     <p>
                         Informasi
@@ -160,19 +162,22 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.recipe.index') }}" class="nav-link">
+                        <a href="{{ route('admin.recipe.index') }}"
+                            class="nav-link {{ request()->is('admin/recipe', 'admin/recipe/*') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Resep Dokter</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.banner.index') }}" class="nav-link">
+                        <a href="{{ route('admin.banner.index') }}"
+                            class="nav-link {{ request()->is('admin/banner') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Banner</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.profile.index') }}" class="nav-link">
+                        <a href="{{ route('admin.profile.index') }}"
+                            class="nav-link {{ request()->is('admin/profile') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Deskripsi Toko</p>
                         </a>

@@ -19,7 +19,10 @@ class RecipeController extends Controller
             return DataTables::of($recipes)
                 ->addIndexColumn()
                 ->addColumn('customer', function ($row) {
-                    return $row->customer ? $row->customer->name : '-';
+                    return $row->customer ? $row->customer->full_name : '-';
+                })
+                ->addColumn('created_at', function ($row) {
+                    return $row->created_at;
                 })
                 ->addColumn('status', function ($row) {
                     return $row->status();
@@ -42,9 +45,7 @@ class RecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.
@@ -74,9 +75,7 @@ class RecipeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Recipe $recipe)
-    {
-    }
+    public function destroy(Recipe $recipe) {}
 
     public function approveRecipe(Recipe $recipe)
     {

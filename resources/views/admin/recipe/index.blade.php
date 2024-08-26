@@ -77,7 +77,7 @@
                     <tr>
                         <th>No</th>
                         <th>Customer</th>
-                        <th>Obat dipesan</th>
+                        <th>Tanggal Upload</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -117,7 +117,7 @@
                     {
                         data: 'customer',
                     }, {
-                        data: 'customer',
+                        data: 'created_at',
                     }, {
                         data: 'status',
                     },

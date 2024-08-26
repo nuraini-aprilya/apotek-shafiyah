@@ -1,7 +1,8 @@
-<a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-detail"><i class="fa fa-eye"></i></a>
+<a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-detail-{{ $id }}"><i
+        class="fa fa-eye"></i></a>
 
 <!-- modal detail -->
-<div class="modal fade" id="modal-detail">
+<div class="modal fade" id="modal-detail-{{ $id }}">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -16,12 +17,8 @@
                         <table class="table table-bordered table-sm">
                             <tr>
                                 <td rowspan="8" style="width:20%;"><img
-                                        src="{{ asset('storage/upload/user', $image) }}" style="max-width:300px;"></td>
-                                <td>Customer Id</td>
-                                <td>:</td>
-                                <td>{{ $id }}</td>
-                            </tr>
-                            <tr>
+                                        src="{{ asset('storage/upload/avatar/' . $image) }}" style="max-width:300px;">
+                                </td>
                                 <td>Nama Customer</td>
                                 <td>:</td>
                                 <td>{{ $full_name }}</td>
