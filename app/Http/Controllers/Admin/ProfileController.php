@@ -60,7 +60,7 @@ class ProfileController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data berhasil diubah');
     }
 
     /**
