@@ -32,7 +32,7 @@
                                             <!-- batas diskon -->
                                             <div class="card-body text-center">
                                                 <img src="{{ asset('storage/upload/produk/' . $discount->product->image) }}"
-                                                    class="card-img-top" alt="Produk 1">
+                                                    class="card-img-top" alt="Produk 1" height="100">
                                                 <p class="limited-text"><b>{{ $discount->product->name }},
                                                     </b>{{ $discount->product->information }}</p>
                                             </div>

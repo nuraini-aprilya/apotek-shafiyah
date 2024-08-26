@@ -152,7 +152,7 @@
                                     <div class="card"
                                         style="box-shadow: 1px 1px 5px 2px rgb(186, 184, 184);text-align:center;">
                                         <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
-                                            style="width: auto;">
+                                            style="width: auto; height:150px;">
                                         <b>{{ $product->name }}</b>
                                         <span class="text-success">Rp.{{ $product->price }}</span>
                                         <br>
@@ -198,9 +198,10 @@
                     // Ambil jumlah dan harga dari setiap baris
                     var amount = parseInt($(this).find('.amount').text());
                     var price = parseFloat($(this).find('.price').text());
+                    var discount = parseFloat($(this).find('.discount').text());
 
                     // Hitung total harga untuk produk tersebut dan tambahkan ke total keseluruhan
-                    total += amount * price;
+                    total += amount * (price - discount);
                 });
 
                 // Tampilkan total harga yang diperbarui

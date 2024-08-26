@@ -88,7 +88,8 @@
                                             <span class="text-danger" id="minimal_purchase_error"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label class="text-secondary">Diskon <span class="text-danger">*</span></label>
+                                            <label class="text-secondary">Diskon <span class="text-danger">*</span> (Ex:
+                                                5000)</label>
                                             <input type="number" class="form-control" name="discount">
                                             <span class="text-danger" id="discount_error"></span>
                                         </div>

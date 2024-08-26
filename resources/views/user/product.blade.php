@@ -33,10 +33,10 @@
                                             <div class="card-body text-center">
                                                 @if ($product->type_id == 1)
                                                     <img src="{{ asset('template/dist/img/k.png') }}" class="logo-k"
-                                                        alt="Logo K">
+                                                        alt="Logo K" height="100">
                                                 @endif
                                                 <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
-                                                    class="card-img-top" alt="Produk 1">
+                                                    class="card-img-top" alt="Produk 1" height="100">
                                                 <p class="limited-text"><b>{{ $product->name }},
                                                     </b>{{ $product->information }}</p>
                                             </div>
