@@ -49,9 +49,16 @@
                                                     class="btn btn-info btn-block btn-sm">
                                                     <i class="fas fa-eye"></i> Detail
                                                 </a>
-                                                <a href="#" class="btn btn-success btn-block btn-sm">
-                                                    <i class="fas fa-shopping-cart"></i> Tambah
-                                                </a>
+                                                @if (auth()->user())
+                                                    <form action="{{ route('store.cart') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <button type="submit"
+                                                            class="btn btn-success btn-block btn-sm my-2">
+                                                            <i class="fas fa-shopping-cart"></i> Tambah
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
