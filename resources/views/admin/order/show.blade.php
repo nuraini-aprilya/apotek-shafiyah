@@ -33,9 +33,9 @@
                         @foreach ($order->detail_order as $detail)
                             <tr>
                                 <td>{{ $detail->product->name }}</td>
-                                <td>{{ $detail->price }}</td>
+                                <td>@currency($detail->price)</td>
                                 <td>{{ $detail->amount }}</td>
-                                <td>{{ $detail->total_price }}</td>
+                                <td>@currency($detail->total_price)</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -80,17 +80,17 @@
                         <tr>
                             <td>Sub Total</td>
                             <td>:</td>
-                            <td>{{ $price }}</td>
+                            <td>@currency($totalPrice)</td>
                         </tr>
                         <tr>
                             <td>Diskon</td>
                             <td>:</td>
-                            <td>{{ $discount }}</td>
+                            <td> @currency($discount)</td>
                         </tr>
                         <tr>
                             <td>Total</td>
                             <td>:</td>
-                            <td>{{ $totalPrice }}</td>
+                            <td>@currency($order->total_price)</td>
                         </tr>
                     </tbody>
                 </table>

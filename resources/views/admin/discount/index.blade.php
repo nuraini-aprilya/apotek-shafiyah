@@ -165,7 +165,7 @@
                     }, {
                         data: 'product.stock',
                     }, {
-                        data: 'product.price',
+                        data: 'product_price',
                     },
                     {
                         data: 'discount',

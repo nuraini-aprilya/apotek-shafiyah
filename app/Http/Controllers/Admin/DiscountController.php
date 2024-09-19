@@ -22,8 +22,14 @@ class DiscountController extends Controller
             $discounts = Discount::with('product')->latest()->get();
             return DataTables::of($discounts)
                 ->addIndexColumn()
+                ->addColumn('product_price', function ($row) {
+                    return 'Rp. ' . number_format($row->product->price, 0, ',', '.');
+                })
                 ->addColumn('selling_price', function ($row) {
-                    return $row->product->price - $row->discount;
+                    return 'Rp. ' . number_format($row->product->price - $row->discount, 0, ',', '.');
+                })
+                ->addColumn('discount', function ($row) {
+                    return 'Rp. ' . number_format($row->discount, 0, ',', '.');
                 })
                 ->addColumn('action', 'admin.discount.include.action')
                 ->toJson();

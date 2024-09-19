@@ -37,10 +37,10 @@
                                                     </b>{{ $discount->product->information }}</p>
                                             </div>
                                             <div class="card-footer text-center">
-                                                <i class="text-muted" style="text-decoration: line-through;">Rp.
-                                                    {{ $discount->product->price }}</i>
+                                                <i class="text-muted"
+                                                    style="text-decoration: line-through;">@currency($discount->product->price)</i>
                                                 <h6 class="text-success">
-                                                    Rp.{{ $discount->product->price - $discount->discount }} /
+                                                    @currency($discount->product->price - $discount->discount) /
                                                     {{ $discount->product->unit->name }}</h6>
                                                 <a href="{{ route('detail.product', $discount->product->id) }}"
                                                     class="btn btn-info btn-block btn-sm">

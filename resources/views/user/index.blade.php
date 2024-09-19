@@ -58,13 +58,6 @@
                                         @forelse ($products as $product)
                                             <div class="col-md-3 col-sm-4 mb-1">
                                                 <div class="card h-80">
-                                                    <!-- kalau ada diskon pake ini  -->
-                                                    {{-- <div class="ribbon-wrapper ribbon-lg">
-                                                        <div class="ribbon bg-success">
-                                                            <b>Disc 50%</b>
-                                                        </div>
-                                                    </div> --}}
-                                                    <!-- batas diskon -->
                                                     <div class="card-body text-center">
                                                         @if ($product->type_id == 1)
                                                             <img src="{{ asset('template/dist/img/k.png') }}" class="logo-k"
@@ -129,14 +122,14 @@
                                                     <!-- kalau ada diskon pake ini  -->
                                                     <div class="ribbon-wrapper ribbon-lg">
                                                         <div class="ribbon bg-success">
-                                                            <b>Disc {{ $item->discount }} </b>
+                                                            <b>Diskon @currency($item->discount) </b>
                                                         </div>
                                                     </div>
                                                     <!-- batas diskon -->
                                                     <div class="card-body text-center">
                                                         @if ($item->product->type_id == 1)
-                                                            <img src="{{ asset('template/dist/img/k.png') }}"
-                                                                class="logo-k" alt="Logo K">
+                                                            <img src="{{ asset('template/dist/img/k.png') }}" class="logo-k"
+                                                                alt="Logo K">
                                                         @endif
                                                         <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
                                                             class="card-img-top" alt="Produk">

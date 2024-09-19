@@ -32,6 +32,9 @@ class OrderController extends Controller
                 ->addColumn('status', function ($row) {
                     return $row->status();
                 })
+                ->addColumn('total_price', function ($row) {
+                    return 'Rp. ' . number_format($row->total_price, 0, ',', '.');
+                })
                 ->addColumn('action', 'admin.order.include.action')
                 ->rawColumns(['action'])
                 ->make(true);

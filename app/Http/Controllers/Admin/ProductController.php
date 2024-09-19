@@ -21,6 +21,9 @@ class ProductController extends Controller
             $products = Product::with('category', 'type')->latest()->get();
             return DataTables::of($products)
                 ->addIndexColumn()
+                ->addColumn('price', function ($row) {
+                    return 'Rp. ' . number_format($row->price, 0, ',', '.');
+                })
                 ->addColumn('action', 'admin.product.include.action')
                 ->toJson();
         }
