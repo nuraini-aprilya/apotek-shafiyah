@@ -7,11 +7,22 @@ use App\Models\Cart;
 use App\Models\DetailCart;
 use App\Models\DetailOrder;
 use App\Models\Order;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::where('customer_id', auth()->user()->id)
+            ->with('detail_order')
+            ->latest()
+            ->get();
+
+        return view('user.history', compact('orders'));
+    }
+
     public function store(Request $request)
     {
         try {
@@ -82,5 +93,23 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function note(Order $order)
+    {
+        $detailOrders = DetailOrder::where('order_id', $order->id)->get();
+        $profile = Profile::first();
+
+        $price = 0;
+        $discount = 0;
+        $totalPrice = 0;
+
+        foreach ($detailOrders as $detailOrder) {
+            $price += $detailOrder->price;
+            $discount += $detailOrder->discount;
+            $totalPrice += $detailOrder->total_price;
+        }
+
+        return view('user.order-note', compact('order', 'price', 'discount', 'totalPrice', 'profile'));
     }
 }

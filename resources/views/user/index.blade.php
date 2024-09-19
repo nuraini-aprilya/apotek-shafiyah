@@ -76,7 +76,7 @@
                                                             </b>{{ $product->information }}</p>
                                                     </div>
                                                     <div class="card-footer text-center">
-                                                        <h4 class="text-success">Rp.{{ $product->price }}
+                                                        <h4 class="text-success">@currency($product->price)
                                                             /
                                                             {{ $product->unit->name }}</h4>
                                                     </div>
@@ -144,7 +144,7 @@
                                                             </b>{{ $item->product->information }}</p>
                                                     </div>
                                                     <div class="card-footer text-center">
-                                                        <h4 class="text-success">Rp.{{ $item->product->price }} /
+                                                        <h4 class="text-success">@currency($item->product->price) /
                                                             {{ $item->product->unit->name }}</h4>
                                                     </div>
                                                 </div>

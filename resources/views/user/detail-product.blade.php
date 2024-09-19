@@ -54,24 +54,24 @@
                                         <div class="bg-gray py-2 px-3 mt-4">
                                             <h2 class="mb-0">
                                                 @if ($product->discount == null)
-                                                    Rp. {{ $product->price }}
+                                                    @currency($product->price)
                                                 @else
-                                                    Rp. {{ $product->price - $product->discount->discount }}
+                                                    @currency($product->price - $product->discount->discount)
                                                 @endif
                                             </h2>
                                             <h5 class="mt-0">
-                                                <small style="font-style: italic;">Harga Jual : Rp. {{ $product->price }},
-                                                    Disc : @if ($product->discount == null)
-                                                        0
+                                                <small style="font-style: italic;">Harga Jual : @currency($product->price),
+                                                    Diskon : @if ($product->discount == null)
+                                                        -
                                                     @else
-                                                        {{ $product->discount->discount }} %
+                                                        @currency($product->discount->discount)
                                                     @endif
                                                 </small>
                                             </h5>
                                         </div>
 
                                         <div class="row mt-4">
-                                            <a class="btn btn-secondary btn-lg" href="{{ url()->previous() }}">
+                                            <a class="btn btn-secondary btn-lg my-2 mr-2" href="{{ url()->previous() }}">
                                                 <i class="fas fa-arrow-left fa-md mr-2"></i>
                                                 Kembali
                                             </a>
@@ -79,7 +79,7 @@
                                                 <form action="{{ route('store.cart') }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                    <button type="submit" class="btn btn-success btn-block btn-sm my-2">
+                                                    <button type="submit" class="btn btn-success btn-block btn-lg my-2">
                                                         <i class="fas fa-shopping-cart"></i> Tambah
                                                     </button>
                                                 </form>

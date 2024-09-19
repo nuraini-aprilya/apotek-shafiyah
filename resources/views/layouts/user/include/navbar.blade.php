@@ -72,26 +72,31 @@
         <!-- Right navbar links -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item">
-                <a class="btn btn-success" href="#" data-toggle="modal" data-target="#modal-troli">
+            <li class="nav-item mr-2">
+                <a class="btn btn-sm btn-success" href="#" data-toggle="modal" data-target="#modal-troli">
                     <i class="fas fa-shopping-cart"></i>
                     Lihat troli
                 </a>
+                @if (auth()->user())
+            <li class="nav-item">
+                <a class="btn btn-sm btn-outline-info" href="{{ route('order.history') }}">
+                    <i class="fas fa-history"></i>
+                    Riwayat pembelian
+                </a>
             </li>
-            @if (auth()->user())
-                <li class="nav-item">
-                    <div class="btn-group ml-5">
-                        <a href="{{ route('logout') }}"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                            class="btn btn-outline-danger" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-power-off"></i>
-                            Logout
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
+            <li class="nav-item">
+                <div class="btn-group ml-2">
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                        class="btn btn-sm btn-outline-danger" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-power-off"></i>
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
             @endif
         </ul>
     </div>
