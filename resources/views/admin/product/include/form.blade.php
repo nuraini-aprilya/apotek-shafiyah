@@ -62,7 +62,7 @@
         <!-- /.form-group -->
         <div class="form-group">
             <label>No. Batch</label>
-            <input type="number" class="form-control" name="batch_number"
+            <input type="text" class="form-control" name="batch_number"
                 value="{{ isset($batch_number) ? $batch_number : old('batch_number') }}">
             <span class="text-danger" id="batch_number_error"></span>
         </div>
