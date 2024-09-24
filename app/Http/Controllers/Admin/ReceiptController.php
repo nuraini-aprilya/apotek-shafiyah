@@ -32,9 +32,7 @@ class ReceiptController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -64,10 +62,10 @@ class ReceiptController extends Controller
             }
 
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Data berhasil ditambah');
         } catch (\Throwable $th) {
             DB::rollback();
-            dd($th->getMessage());
+            return redirect()->back()->with('success', $th->getMessage());
         }
     }
 
@@ -91,9 +89,7 @@ class ReceiptController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReceiptRequest $request, Receipt $receipt)
-    {
-    }
+    public function update(UpdateReceiptRequest $request, Receipt $receipt) {}
 
     /**
      * Remove the specified resource from storage.

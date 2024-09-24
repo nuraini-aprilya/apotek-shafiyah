@@ -68,10 +68,10 @@ class PurchaseController extends Controller
 
 
             DB::commit();
-            return redirect()->back();
+            return redirect()->back()->with('Data berhasil ditambah');
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th->getMessage());
+            return redirect()->back()->with('success', $th->getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ class PurchaseController extends Controller
             return redirect()->back();
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th->getMessage());
+            return redirect()->back()->with('success', $th->getMessage());
         }
     }
 
