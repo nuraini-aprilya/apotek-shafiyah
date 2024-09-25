@@ -41,17 +41,11 @@ class CartController extends Controller
         $customerId = $request->input('customer_id');
 
         $adminId = 1;
-        $customerId = $customerId;
 
-        $cart = Cart::where('customer_id', $customerId)->first();
-
-        if (!$cart) {
-            $cart = Cart::create([
-                'admin_id' => $adminId,
-                'customer_id' => $customerId,
-                'total_price' => 0,
-            ]);
-        }
+        $cart = Cart::firstOrCreate(
+            ['customer_id' => $customerId],
+            ['admin_id' => $adminId, 'total_price' => 0]
+        );
 
         $product = Product::findOrFail($productId);
         $detailCart = DetailCart::where('cart_id', $cart->id)
@@ -75,8 +69,7 @@ class CartController extends Controller
         }
 
         $cartTotalPrice = DetailCart::where('cart_id', $cart->id)->sum('total_price');
-        $cart->total_price = $cartTotalPrice;
-        $cart->save();
+        $cart->update(['total_price' => $cartTotalPrice]);
 
         $detailCart->load('product');
 

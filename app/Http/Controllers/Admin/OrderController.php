@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\Cart;
+use App\Models\DetailCart;
 use App\Models\DetailOrder;
 use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -56,41 +59,68 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-        ]);
+        try {
+            DB::beginTransaction();
 
-        $productId = $request->input('product_id');
-        $customerId = $request->input('customer_id');
-        $total_price = $request->input('total_price');
-        $status = 2;
-        $amountValue = $request->input('amountValue');
-        $priceValue = $request->input('priceValue');
-        $discountValue = $request->input('discountValue');
-        $totalValue = $request->input('totalValue');
+            $customerId = $request->input('customer_id');
+            $totalPrice = $request->input('total_price');
+            $products = $request->input('products');
+            $status = 2;
+            $adminId = 1;
 
-        $adminId = 1;
-        $customerId = $customerId;
+            $order = Order::create([
+                'admin_id' => $adminId,
+                'customer_id' => $customerId,
+                'total_price' => $totalPrice,
+                'status' => $status
+            ]);
 
-        $order = Order::create([
-            'admin_id' => $adminId,
-            'customer_id' => $customerId,
-            'total_price' => $total_price,
-            'status' => $status
-        ]);
+            foreach ($products as $productData) {
+                $productId = $productData['product_id'];
+                $amount = $productData['amount'];
+                $price = $productData['price'];
+                $discount = $productData['discount'] ?? 0;
+                $totalPrice = $productData['total_price'];
 
-        $detailOrder = new DetailOrder([
-            'order_id' => $order->id,
-            'product_id' => $productId,
-            'price' => $priceValue,
-            'discount' => $discountValue,
-            'amount' => $amountValue,
-            'total_price' => $totalValue
-        ]);
+                // Ambil produk dari database
+                $product = Product::find($productId);
 
-        $detailOrder->save();
+                // Cek apakah stok produk mencukupi
+                if ($product->stock < $amount) {
+                    return response()->json(['message' => 'Stok produk tidak mencukupi untuk ' . $product->name], 400);
+                }
 
-        return response()->json(['message' => 'Produk berhasil dibayar.']);
+                // Buat detail order untuk setiap produk
+                $detailOrder = new DetailOrder([
+                    'order_id' => $order->id, // Gunakan order yang sama
+                    'product_id' => $productId,
+                    'price' => $price,
+                    'discount' => $discount,
+                    'amount' => $amount,
+                    'total_price' => $totalPrice
+                ]);
+                $detailOrder->save();
+
+                // Kurangi stok produk
+                $product->stock -= $amount;
+                $product->save();
+            }
+
+            // Hapus keranjang setelah proses pembelian selesai
+            $cart = Cart::where('customer_id', $customerId)->first();
+            if ($cart) {
+                DetailCart::where('cart_id', $cart->id)->delete(); // Hapus detail cart
+                $cart->delete(); // Hapus cart
+            }
+
+            DB::commit();
+
+            return response()->json(['message' => 'Produk berhasil dibayar.']);
+        } catch (\Throwable $th) {
+            DB::rollback();
+
+            return response()->json(['message' => $th->getMessage()], 500);
+        }
     }
 
     /**

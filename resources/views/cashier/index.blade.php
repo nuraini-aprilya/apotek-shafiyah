@@ -32,11 +32,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-info">Data pembeli</span>
                                         </div>
-                                        <select name="" id="" class="select2 form-control"
-                                            data-placeholder="-- Pilih Pembeli --">
+                                        <select name="" id="customerSelect" class="select2 form-control">
                                             <option></option>
                                             @foreach ($customers as $customer)
-                                                <option></option>
                                                 <option value="{{ $customer->id }}">{{ $customer->full_name }}</option>
                                             @endforeach
                                         </select>
@@ -59,7 +57,7 @@
                         </div>
                     </div>
                     <!-- /.card-body -->
-                    <input type="hidden" id="selectedCustomer" name="customer_id" value="">
+                    <input type="hidden" id="selectedCustomer" name="customer_id">
                 </div>
 
                 <div class="card card-secondary">
@@ -154,7 +152,7 @@
                                         <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
                                             style="width: auto; height:150px;">
                                         <b>{{ $product->name }}</b>
-                                        <span class="text-success">Rp.{{ $product->price }}</span>
+                                        <span class="text-success">@currency($product->price)</span>
                                         <br>
                                         <!-- Tombol Tambah -->
                                         <button data-product-id="{{ $product->id }}" type="button"
@@ -177,18 +175,22 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2({
-                placeholder: function() {
-                    $(this).data('placeholder');
-                }
+                placeholder: "-- Pilih Pembeli --",
+                allowClear: true
             })
 
             $('.nav-link').on('click', function() {
-                if ($(this).attr('aria-controls') === 'custom-content-above-home') {
-                    var selectedCustomerId = $('#custom-content-above-home select').val();
+                if ($(this).attr('id') === 'custom-content-above-home-tab') {
+                    var selectedCustomerId = $('#customerSelect').val();
                     $('#selectedCustomer').val(selectedCustomerId);
                 } else {
                     $('#selectedCustomer').val('');
                 }
+            });
+
+            $('#customerSelect').on('change', function() {
+                var selectedCustomerId = $(this).val();
+                $('#selectedCustomer').val(selectedCustomerId);
             });
 
             function updateTotalPrice() {
@@ -207,67 +209,6 @@
                 // Tampilkan total harga yang diperbarui
                 $('h4#total').text('Rp. ' + total);
             }
-
-            $('.tambahBaris').click(function() {
-                var productId = $(this).data('product-id');
-
-                var selectedCustomer = $('#selectedCustomer').val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('admin.cart.store') }}',
-                    data: {
-                        product_id: productId,
-                        customer_id: selectedCustomer,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        alert('Produk berhasil ditambahkan ke keranjang belanja!');
-
-                        var detail = response.detail;
-                        var cartId = detail.cart_id;
-
-                        var productId = detail.product.id;
-                        var existingRow = $('#tabel tbody tr[data-product-id="' + productId +
-                            '"]');
-
-                        if (existingRow.length > 0) {
-                            // Jika produk sudah ada dalam tabel, perbarui jumlah dan total harga
-                            var amountCell = existingRow.find('.amount');
-                            var priceCell = existingRow.find('.price');
-                            var discountCell = existingRow.find('.discount');
-                            var totalPriceCell = existingRow.find('.total-price');
-
-                            var amount = detail.amount;
-                            var totalPrice = amount * detail.price;
-
-                            amountCell.text(amount);
-                            totalPriceCell.text(totalPrice);
-                        } else {
-                            // Jika produk belum ada dalam tabel, tambahkan baris baru
-                            var newRow = "<tr data-product-id='" + productId + "'>" +
-                                "<td>" + detail.product.name + "</td>" +
-                                "<td class='amount'>" + detail.amount + "</td>" +
-                                "<td class='price'>" + detail.price + "</td>" +
-                                "<td class='discount'>" + detail.discount + "</td>" +
-                                "<td class='total-price'>" + detail.total_price + "</td>" +
-                                "<td><button class='btn btn-danger btn-sm hapusBaris' data-cart-id='" +
-                                cartId + "'>Hapus</button></td>" +
-                                "</tr>";
-
-                            $('#tabel tbody').append(newRow);
-                        }
-
-                        updateTotalPrice();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                        alert(
-                            'Terjadi kesalahan saat menambahkan produk ke keranjang belanja.'
-                        );
-                    }
-                });
-            });
 
             $(document).on('click', '.hapusBaris', function() {
                 var row = $(this).closest('tr');
@@ -295,42 +236,114 @@
                 });
             });
 
-            $('#buyOrder').click(function() {
-                var row = $('#tabel tbody tr');
+            $('.tambahBaris').click(function() {
 
-                var productId = row.data('product-id');
+                var productId = $(this).data('product-id');
+
+                var selectedCustomer = $('#selectedCustomer').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('admin.cart.store') }}',
+                    data: {
+                        product_id: productId,
+                        customer_id: selectedCustomer,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+
+                        alert('Produk berhasil ditambahkan ke keranjang belanja!');
+
+                        var detail = response.detail;
+                        var cartId = detail.cart_id;
+
+                        var productId = detail.product.id;
+                        var existingRow = $('#tabel tbody tr[data-product-id="' + productId +
+                            '"]');
+
+                        if (existingRow.length > 0) {
+                            // Jika produk sudah ada dalam tabel, perbarui jumlah dan total harga
+                            var amountCell = existingRow.find('.amount');
+                            var priceCell = existingRow.find('.price');
+                            var discountCell = existingRow.find('.discount');
+                            var totalPriceCell = existingRow.find('.total-price');
+
+                            var amount = detail.amount;
+                            var totalPrice = amount * detail.price;
+
+                            amountCell.text(amount);
+                            totalPriceCell.text(totalPrice);
+                        } else {
+                            existingRow.empty();
+
+                            var newRow = "<tr data-product-id='" + productId + "'>" +
+                                "<td>" + detail.product.name + "</td>" +
+                                "<td class='amount'>" + detail.amount + "</td>" +
+                                "<td class='price'>" + detail.price + "</td>" +
+                                "<td class='discount'>" + detail.discount + "</td>" +
+                                "<td class='total-price'>" + detail.total_price + "</td>" +
+                                "<td><button class='btn btn-danger btn-sm hapusBaris' data-cart-id='" +
+                                cartId + "'>Hapus</button></td>" +
+                                "</tr>";
+
+                            $('#tabel tbody').append(newRow);
+                        }
+
+                        updateTotalPrice();
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMessage = xhr.responseJSON?.message ||
+                            'Terjadi kesalahan saat menambahkan produk ke keranjang belanja.';
+                        alert(errorMessage);
+                    }
+                });
+            });
+
+            $('#buyOrder').off('click').on('click', function() {
+                var rows = $('#tabel tbody tr');
                 var selectedCustomer = $('#selectedCustomer').val();
                 var total_price = $('h4#total').text().replace('Rp. ', '');
-                var amountValue = row.find('.amount').text();
-                var priceValue = row.find('.price').text();
-                var discountValue = row.find('.discount').text();
-                var totalValue = row.find('.total-price').text();
+                var products = []; // Array untuk menyimpan detail produk
+
+                // Loop melalui setiap baris di tabel untuk mendapatkan data produk
+                rows.each(function() {
+                    var productId = $(this).data('product-id');
+                    var amountValue = $(this).find('.amount').text();
+                    var priceValue = $(this).find('.price').text();
+                    var discountValue = $(this).find('.discount').text();
+                    var totalValue = $(this).find('.total-price').text();
+
+                    // Tambahkan data produk ke array
+                    products.push({
+                        product_id: productId,
+                        amount: amountValue,
+                        price: priceValue,
+                        discount: discountValue,
+                        total_price: totalValue
+                    });
+                });
 
                 $.ajax({
                     type: 'POST',
                     url: '{{ route('admin.order.store') }}',
                     data: {
-                        product_id: productId,
                         customer_id: selectedCustomer,
                         total_price: total_price,
-                        amountValue: amountValue,
-                        priceValue: priceValue,
-                        discountValue: discountValue,
-                        totalValue: totalValue,
+                        products: products,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function(response) {
                         alert('Produk berhasil dibayar!');
-                        location.reload()
+                        location.reload();
                     },
                     error: function(xhr, status, error) {
-                        console.error(error);
-                        alert(
-                            'Terjadi kesalahan saat membayar.'
-                        );
+                        var errorMessage = xhr.responseJSON?.message ||
+                            'Terjadi kesalahan saat membayar.';
+                        alert(errorMessage);
                     }
                 });
-            })
+            });
+
         })
     </script>
 @endpush
