@@ -34,7 +34,7 @@
                                                 <img src="{{ asset('storage/upload/produk/' . $discount->product->image) }}"
                                                     class="card-img-top" alt="Produk 1" height="100">
                                                 <p class="limited-text"><b>{{ $discount->product->name }},
-                                                    </b>{{ $discount->product->information }}</p>
+                                                    </b>{!! Str::words($discount->product->information, 10, '...') !!}</p>
                                             </div>
                                             <div class="card-footer text-center">
                                                 <i class="text-muted"

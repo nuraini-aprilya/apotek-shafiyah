@@ -2,13 +2,15 @@
     <div class="col-md-6">
         <div class="form-group">
             <label>Kode Obat</label>
-            <input type="text" class="form-control" name="code" value="{{ isset($code) ? $code : old('code') }}">
+            <input type="text" class="form-control" name="code"
+                value="{{ isset($product->code) ? $product->code : old('code') }}">
             <span class="text-danger" id="code_error"></span>
         </div>
         <!-- /.form-group -->
         <div class="form-group">
             <label>Nama Obat</label>
-            <input type="text" class="form-control" name="name" value="{{ isset($name) ? $name : old('name') }}">
+            <input type="text" class="form-control" name="name"
+                value="{{ isset($product->name) ? $product->name : old('name') }}">
             <span class="text-danger" id="name_error"></span>
         </div>
         <!-- /.form-group -->
@@ -27,7 +29,7 @@
         <div class="form-group">
             <label>Harga</label>
             <input type="number" class="form-control" name="price"
-                value="{{ isset($price) ? $price : old('price') }}">
+                value="{{ isset($product->price) ? $product->price : old('price') }}">
             <span class="text-danger" id="price_error"></span>
         </div>
     </div>
@@ -63,7 +65,7 @@
         <div class="form-group">
             <label>No. Batch</label>
             <input type="text" class="form-control" name="batch_number"
-                value="{{ isset($batch_number) ? $batch_number : old('batch_number') }}">
+                value="{{ isset($product->batch_number) ? $product->batch_number : old('batch_number') }}">
             <span class="text-danger" id="batch_number_error"></span>
         </div>
         <!-- /.form-group -->
@@ -97,7 +99,7 @@
             </div>
         </div>
         <div class="col-md-6 p-2">
-            <img src="{{ asset('storage/upload/produk/' . $image) }}" class="p-2"
+            <img src="{{ asset('storage/upload/produk/' . $product->image) }}" class="p-2"
                 style="max-width:150px;border:2px solid darkgreen;">
         </div>
     @else
@@ -119,7 +121,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Keterangan</label>
-            <textarea class="form-control" name="information">{{ isset($information) ? $information : old('information') }}</textarea>
+            <textarea id="information" class="form-control" name="information">{{ isset($product->information) ? $product->information : old('information') }}</textarea>
             <span class="text-danger" id="information_error"></span>
         </div>
     </div>

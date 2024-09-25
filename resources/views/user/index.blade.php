@@ -66,7 +66,7 @@
                                                         <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
                                                             class="card-img-top" alt="Produk ">
                                                         <p class="limited-text"><b>{{ $product->name }},
-                                                            </b>{{ $product->information }}</p>
+                                                            </b>{!! Str::words($product->information, 10, '...') !!}</p>
                                                     </div>
                                                     <div class="card-footer text-center">
                                                         <h4 class="text-success">@currency($product->price)
@@ -134,7 +134,7 @@
                                                         <img src="{{ asset('storage/upload/produk/' . $product->image) }}"
                                                             class="card-img-top" alt="Produk">
                                                         <p class="limited-text"><b>{{ $item->product->name }},
-                                                            </b>{{ $item->product->information }}</p>
+                                                            </b>{!! Str::words($item->product->information, 10, '...') !!}</p>
                                                     </div>
                                                     <div class="card-footer text-center">
                                                         <h4 class="text-success">@currency($item->product->price) /

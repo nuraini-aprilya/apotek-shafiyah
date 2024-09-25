@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Type;
+use App\Models\Unit;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -77,7 +81,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $brands = Brand::latest()->get();
+        $categories = Category::latest()->get();
+        $types = Type::latest()->get();
+        $units = Unit::latest()->get();
+        return view('admin.product.edit', compact('product', 'brands', 'categories', 'types', 'units'));
     }
 
     /**

@@ -61,7 +61,7 @@
         <tr>
             <td>Deskripsi</td>
             <td>:</td>
-            <td>{{ $product->information }}</td>
+            <td>{!! $product->information !!}</td>
         </tr>
     </table>
 @endsection

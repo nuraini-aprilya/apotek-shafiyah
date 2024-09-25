@@ -31,7 +31,7 @@
                                         <h3 class="my-3"><b>{{ $product->name }}</b>
                                         </h3>
                                         <h5><b>Deskripsi :</b></h5>
-                                        <p>{{ $product->information }} </p>
+                                        <p>{!! $product->information !!} </p>
                                         <table class="table table-sm">
                                             <tbody>
                                                 <tr>
