@@ -58,7 +58,7 @@
                 </ul>
             </li>
             <li
-                class="nav-item {{ request()->is('admin/discount', 'admin/product', 'admin/expire-product', 'admin/dwindling-product') ? ' menu-open' : '' }}">
+                class="nav-item {{ request()->is('admin/discount', 'admin/product', 'admin/product/*', 'admin/expire-product', 'admin/dwindling-product') ? ' menu-open' : '' }}">
                 <a href="#"
                     class="nav-link {{ request()->is('admin/discount', 'admin/product', 'admin/expire-product', 'admin/dwindling-product') ? ' active' : '' }}">
                     <i class="nav-icon fa fa-medkit"></i>
@@ -70,7 +70,7 @@
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
                         <a href="{{ route('admin.product.index') }}"
-                            class="nav-link {{ request()->is('admin/product') ? ' active' : '' }}">
+                            class="nav-link {{ request()->is('admin/product', 'admin/product/*') ? ' active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>List Produk</p>
                         </a>
