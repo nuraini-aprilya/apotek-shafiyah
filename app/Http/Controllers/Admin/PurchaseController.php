@@ -50,7 +50,7 @@ class PurchaseController extends Controller
             $purchase = new Purchase();
             $purchase->supplier_id = $attr['supplier_id'];
             $purchase->purchase_number = $attr['purchase_number'];
-            $purchase->invoice_number = Str::random(8);
+            $purchase->invoice_number = $attr['invoice_number'];
             $purchase->order_date = $attr['order_date'];
             $purchase->information = $attr['information'];
             $purchase->save();

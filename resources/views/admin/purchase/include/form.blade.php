@@ -24,11 +24,17 @@
             </select>
         </div>
         <div class="form-group">
+            <label>Nomor Invoice<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="invoice_number">
+        </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-12">
+        <div class="form-group">
             <label>Keterangan</label>
             <textarea name="information" class="form-control" rows="1"></textarea>
         </div>
     </div>
-    <!-- /.col -->
     <div class="col-md-12">
         <hr>
         <a href="#" class="btn btn-info btn-sm mb-2" id="tambahBaris">Tambah Produk</a>

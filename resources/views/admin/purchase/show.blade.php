@@ -48,6 +48,18 @@
                                         <td>{{ $purchase->supplier->name }}</td>
                                     </tr>
                                     <tr>
+                                        <td>No. Invoice</td>
+                                        <td>:</td>
+                                        <td>{{ $purchase->invoice_number }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
                                         <td>Keterangan</td>
                                         <td>:</td>
                                         <td>{{ $purchase->information }}</td>

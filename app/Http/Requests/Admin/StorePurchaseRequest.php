@@ -25,7 +25,7 @@ class StorePurchaseRequest extends FormRequest
             'product_id' => 'required',
             'supplier_id' => 'required',
             'purchase_number' => 'required',
-            'invoice_number' => 'string',
+            'invoice_number' => 'required',
             'order_date' => 'required',
             'expired_date' => 'required',
             'quantity' => 'required',
