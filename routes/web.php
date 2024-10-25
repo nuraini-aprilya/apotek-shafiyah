@@ -65,6 +65,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     // Order
     Route::resource('/order', App\Http\Controllers\Admin\OrderController::class);
     Route::get('/approveOrder/{order}', [App\Http\Controllers\Admin\OrderController::class, 'approve'])->name('approve.order');
+    Route::get('/export/order', [App\Http\Controllers\Admin\OrderController::class, 'export'])->name('export.order');
 
     // User
     Route::resource('/user', App\Http\Controllers\Admin\UserController::class);
@@ -76,10 +77,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::resource('/purchase', App\Http\Controllers\Admin\PurchaseController::class);
     Route::get('/getPurchaseDetails/{id}', [App\Http\Controllers\Admin\PurchaseController::class, 'getPurchaseDetails']);
     Route::get('/print/purchase/{purchase}', [App\Http\Controllers\Admin\PurchaseController::class, 'print'])->name('print.purchase');
+    Route::get('/export/purchase', [App\Http\Controllers\Admin\PurchaseController::class, 'export'])->name('export.purchase');
 
     // Receipt
     Route::resource('/receipt', App\Http\Controllers\Admin\ReceiptController::class);
     Route::get('/print/receipt/{receipt}', [App\Http\Controllers\Admin\ReceiptController::class, 'print'])->name('print.receipt');
+    Route::get('/export/receipt', [App\Http\Controllers\Admin\ReceiptController::class, 'export'])->name('export.receipt');
 
     // Refund
     Route::resource('/refund', App\Http\Controllers\Admin\RefundController::class);

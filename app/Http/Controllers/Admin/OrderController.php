@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\OrderExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -13,6 +14,7 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -174,5 +176,17 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Pesanan berhasil diterima');
+    }
+
+    public function export(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        if ($startDate && $endDate) {
+            return Excel::download(new OrderExport($startDate, $endDate), 'Laporan Penjualan.xlsx');
+        } else {
+            return redirect()->back()->with('error', 'Maaf, tidak bisa export data');
+        }
     }
 }

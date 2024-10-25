@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PurchaseExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePurchaseRequest;
 use App\Http\Requests\Admin\UpdatePurchaseRequest;
 use App\Models\DetailPurchase;
 use App\Models\Purchase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
-use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PurchaseController extends Controller
 {
@@ -130,5 +132,17 @@ class PurchaseController extends Controller
     {
         $purchase->load('detail_purchase', 'supplier');
         return view('admin.purchase.print', compact('purchase'));
+    }
+
+    public function export(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        if ($startDate && $endDate) {
+            return Excel::download(new PurchaseExport($startDate, $endDate), 'Laporan Pembelian.xlsx');
+        } else {
+            return redirect()->back()->with('error', 'Maaf, tidak bisa export data');
+        }
     }
 }

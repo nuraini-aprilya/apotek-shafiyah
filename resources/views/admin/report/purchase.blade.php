@@ -26,26 +26,29 @@
 @section('content')
     <div class="col-12">
         <div class="card">
-            <div class="card-body">
-                <div class="row mb-2">
-                    <div class="col-6">
-                        <label for="" class="text-sm">Tanggal awal</label>
-                        <input type="date" class="form-control" id="searchName">
-                    </div>
-                    <div class="col-6">
-                        <label for="" class="text-sm">Tanggal akhir</label>
-                        <input type="date" class="form-control" id="searchKode">
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-2">
-                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-download"></i>
-                            Tampilkan</button>
+            <form action="{{ route('admin.export.purchase') }}">
+                @csrf
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <label for="" class="text-sm">Tanggal awal</label>
+                            <input type="date" class="form-control" name="start_date">
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="text-sm">Tanggal akhir</label>
+                            <input type="date" class="form-control" name="end_date">
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-download"></i>
+                                Tampilkan</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="col-12">

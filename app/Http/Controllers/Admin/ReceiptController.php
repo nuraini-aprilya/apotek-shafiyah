@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ReceiptExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreReceiptRequest;
 use App\Http\Requests\Admin\UpdateReceiptRequest;
 use App\Models\DetailReceipt;
 use App\Models\Product;
 use App\Models\Receipt;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReceiptController extends Controller
@@ -110,5 +113,17 @@ class ReceiptController extends Controller
     {
         $receipt->load('purchase', 'detail_receipt');
         return view('admin.receipt.print', compact('receipt'));
+    }
+
+    public function export(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        if ($startDate && $endDate) {
+            return Excel::download(new ReceiptExport($startDate, $endDate), 'Laporan Penerimaan.xlsx');
+        } else {
+            return redirect()->back()->with('error', 'Maaf, tidak bisa export data');
+        }
     }
 }
