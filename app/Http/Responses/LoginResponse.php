@@ -1,7 +1,10 @@
 <?php
 
+namespace App\Http\Responses;
+
 use Illuminate\Support\Facades\Auth;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Illuminate\Http\RedirectResponse;
 
 class LoginResponse implements LoginResponseContract
 {
